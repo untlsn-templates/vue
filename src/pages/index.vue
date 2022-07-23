@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <main class="bg-primary-dark min-h-screen grid place-items-center">
-    <NftBox />
+  <main class="min-h-screen grid place-items-center">
+    <div>Hello World!</div>
   </main>
 </template>

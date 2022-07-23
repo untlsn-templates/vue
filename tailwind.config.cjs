@@ -6,16 +6,7 @@ module.exports = {
   },
   theme: {
     extend: {
-      colors: {
-        primary: {
-          dark: '#0D1A2D',
-          main: '#15273F',
-        },
-        text: {
-          light: '#15D0D0',
-          white: '#87A7D3',
-        }
-      },
+      colors: {},
     },
   },
   plugins: [],

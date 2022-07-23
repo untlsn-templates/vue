@@ -1,7 +1,6 @@
-# NFT preview card component on Vue
+# Vue Template
 
-A creation of [NFT preview card component](https://www.frontendmentor.io/challenges/nft-preview-card-component-SbdUL_w0U)
-challenge from Frontend Mentor build on Vue using [vitesse](https://github.com/antfu/vitesse) template
+Vue template base on [vitesse](https://github.com/antfu/vitesse) template
 
 ## Get Started
 

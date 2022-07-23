@@ -14,7 +14,6 @@ export default defineConfig({
       '~/': `${path.resolve(__dirname, 'src')}/`,
     },
   },
-  base: '/nft-preview-card-component/',
   plugins: [
     Vue({
       include: [/\.vue$/, /\.md$/],
