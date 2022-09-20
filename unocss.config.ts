@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import {
   defineConfig,
   presetIcons,
@@ -7,23 +9,30 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss';
-import twConfig from './tailwind.config.cjs';
+import { theme } from './tailwind.config.cjs';
 
-export default defineConfig({
-  shortcuts: [
-    /* Example
-    ['name','uno-classes'],
-    */
-  ],
+const shortcuts: [string, string][] = [];
+
+const config = defineConfig({
+  shortcuts,
   // WebStorm don't support unocss config, so theme put in tailwind.config.cjs
   theme: {
-    ...twConfig.theme.extend,
+    ...theme.extend,
   },
   rules: [
-    [/^size-(\d+)$/, ([, d]) => {
-      const size = `${(Number(d)) / 4}rem`;
+    ['content-fill', { content: '"_"' }],
+    [/^((min|max)-)?size-(\d+)(.+)?$/, ([matcher]) => {
+      const [type, sizePart] = matcher.split('size-');
+      const sizeNum = Number(sizePart);
+      let size = sizePart;
+      if (sizeNum > 0) { size = `${sizeNum / 4}rem`; }
+      else if (sizePart.includes('/')) {
+        const [prev, suf] = sizePart.split('/');
+        const percent = 100 * Number(prev) / Number(suf);
+        size = `${percent}%`;
+      }
 
-      return { width: size, height: size };
+      return { [`${type}width`]: size, [`${type}height`]: size };
     }],
   ],
   variants: [
@@ -63,16 +72,16 @@ export default defineConfig({
     presetWind(),
     presetWebFonts({
       fonts: {
-        sans: 'Source Sans Pro:400,700',
-        manrope: 'Manrope:300,400',
+        sans: 'Roboto',
+        montserrat: 'Montserrat:400,600',
       },
     }),
     presetIcons({
       extraProperties: {
         'display': 'inline-block',
-        'vertical-align': 'top',
         'height': 'auto',
         'min-height': '1em',
+        'white-space': 'nowrap',
       },
     }),
   ],
@@ -81,3 +90,11 @@ export default defineConfig({
     transformerVariantGroup(),
   ],
 });
+
+// Create mock file for auto-complete
+fs.writeFileSync(
+  path.join(__dirname, '/src/assets/style/mock.css'),
+  [...shortcuts, ['content-fill']].map(([name]) => `.${name} {}`).join('\n'),
+);
+
+export default config;

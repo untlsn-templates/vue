@@ -8,7 +8,7 @@ useHead({
     { name: 'description', content: 'Opinionated Vite Starter Template' },
     {
       name: 'theme-color',
-      content: computed(() => isDark.value ? '#000000' : '#ffffff'),
+      content: '#ffffff',
     },
   ],
   link: [
